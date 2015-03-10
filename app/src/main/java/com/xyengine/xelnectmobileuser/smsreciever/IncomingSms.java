@@ -69,6 +69,7 @@ public class IncomingSms extends BroadcastReceiver {
         //.out.println( sdf.format(cal.getTime()) );
         return hour + ":" + minute + ":" + second;
     }
+    //test change
 /*    public static String getMessage(){
         return smsMessage;
     }
