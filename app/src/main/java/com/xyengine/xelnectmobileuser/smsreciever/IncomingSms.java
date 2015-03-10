@@ -129,7 +129,7 @@ public class IncomingSms extends BroadcastReceiver {
 
             String decompressedMessage = null;
             try {
-                decompressedMessage = LZString.decompressFromBase64(stringTobeDecompressed1);
+                decompressedMessage = LZString.decompressFromUTF16(stringTobeDecompressed1);
 
             Log.e("","" + decompressedMessage);
             pastSMSText = decompressedMessage;
@@ -154,7 +154,7 @@ public class IncomingSms extends BroadcastReceiver {
             return pastSMSText;
         }
 
-        
+
         protected String onPostExecute(String... result) {
            // MainActivityTextView.setText(pastSMSText);
            //  return null;// txt.setText(result);

@@ -1,5 +1,6 @@
 package com.xyengine.xelnectmobileuser.smsreciever;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -16,8 +17,12 @@ public class MainActivity extends ActionBarActivity {
         smsView = (TextView) findViewById(R.id.smsRecieverView);
         timeView = (TextView) findViewById(R.id.timeView);
         //IncomingSms incomingSms = new IncomingSms();
+        //smsView.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Hindi.ttf"));
+        Typeface face=Typeface.createFromAsset(getAssets(),
+                "hindi.ttf");
+        smsView.setTypeface(face);
 
-
+        //im.setText("Hindi font");
 
     }
     public static void updateView(TextView viewToUpdate, String textToInclude){
