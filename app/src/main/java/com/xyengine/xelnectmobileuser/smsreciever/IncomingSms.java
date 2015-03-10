@@ -44,7 +44,8 @@ public class IncomingSms extends BroadcastReceiver {
                     smsMessage.add(message);
 
 
-
+                    MainActivity.timeview.setText("Message recieved on: " + getCurrentTime());
+                    MainActivity.smsView.setText(smsMessage.toString().substring(1,smsMessage.toString().length()-1));
                     // Show Alert
                     int duration = Toast.LENGTH_LONG;
                     Toast toast = Toast.makeText(context,
@@ -52,8 +53,6 @@ public class IncomingSms extends BroadcastReceiver {
                     toast.show();
 
                 } // end for loop
-                MainActivity.timeview.setText("Message recieved on: " + getCurrentTime());
-                MainActivity.smsView.setText(smsMessage.toString().substring(1,smsMessage.toString().length()-1));
             } // bundle is null
 
         } catch (Exception e) {
