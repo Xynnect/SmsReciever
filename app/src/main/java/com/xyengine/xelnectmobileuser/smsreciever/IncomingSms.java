@@ -122,14 +122,14 @@ public class IncomingSms extends BroadcastReceiver {
             return "Executed";*/
 
             Log.e("",params[0]);
-            String stringTobeDecompressed = params[0].replace("Sent from your Twilio trial account - ","");
-            String stringTobeDecompressed1 = stringTobeDecompressed.replaceFirst(" ","");
-            Log.e("StringToBeDecompressed:","" + stringTobeDecompressed1);
+            String stringTobeDecompressed = params[0].replaceFirst("Sent from your Twilio trial account - ","");
+            //String stringTobeDecompressed1 = stringTobeDecompressed.replaceFirst(" ","");
+            Log.e("StringToBeDecompressed:","" + stringTobeDecompressed);
             //String stringBeingDecompressed = LZString.decompress(stringTobeDecompressed);
 
             String decompressedMessage = null;
             try {
-                decompressedMessage = LZString.decompressFromUTF16(stringTobeDecompressed1);
+                decompressedMessage = LZString.decompressFromBase64(stringTobeDecompressed);
 
             Log.e("","" + decompressedMessage);
             pastSMSText = decompressedMessage;

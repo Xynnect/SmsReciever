@@ -18,9 +18,9 @@ public class MainActivity extends ActionBarActivity {
         timeView = (TextView) findViewById(R.id.timeView);
         //IncomingSms incomingSms = new IncomingSms();
         //smsView.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Hindi.ttf"));
-        Typeface face=Typeface.createFromAsset(getAssets(),
-                "hindi.ttf");
-        smsView.setTypeface(face);
+       /* Typeface face=Typeface.createFromAsset(getAssets(),
+                "fonts/hindi.ttf");
+        smsView.setTypeface(face);*/
 
         //im.setText("Hindi font");
 
