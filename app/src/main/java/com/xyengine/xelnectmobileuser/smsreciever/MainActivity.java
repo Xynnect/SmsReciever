@@ -1,22 +1,27 @@
 package com.xyengine.xelnectmobileuser.smsreciever;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-
 public class MainActivity extends ActionBarActivity {
     public static TextView smsView;
-    public static TextView timeview;
+    public static TextView timeView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        IncomingSms incomingSms = new IncomingSms();
+        this.setContentView(R.layout.activity_main);
         smsView = (TextView) findViewById(R.id.smsRecieverView);
-        timeview = (TextView) findViewById(R.id.timeView);
+        timeView = (TextView) findViewById(R.id.timeView);
+        //IncomingSms incomingSms = new IncomingSms();
+
+
+
+    }
+    public static void updateView(TextView viewToUpdate, String textToInclude){
+        viewToUpdate.setText(textToInclude);
     }
 
 

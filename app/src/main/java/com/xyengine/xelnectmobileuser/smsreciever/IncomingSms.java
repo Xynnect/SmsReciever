@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,12 +18,41 @@ public class IncomingSms extends BroadcastReceiver {
 
     // Get the object of SmsManager
     final SmsManager sms = SmsManager.getDefault();
-    private static ArrayList<String> smsMessage;
+    SmsMessage currentMessage;
+    String phoneNumber;
+    String senderNum;
+    static String message;
+    public static ArrayList<String> smsMessage;
 
     public void onReceive(Context context, Intent intent) {
 
+        if(intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")){
+            Bundle bundle = intent.getExtras();           //---get the SMS message passed in---
+            SmsMessage[] msgs = null;
+            String msg_from;
+            String msgBody = "";
+            if (bundle != null){
+                //---retrieve the SMS message received---
+                try{
+                    Object[] pdus = (Object[]) bundle.get("pdus");
+                    msgs = new SmsMessage[pdus.length];
+                    for(int i=0; i<msgs.length; i++){
+                        msgs[i] = SmsMessage.createFromPdu((byte[])pdus[i]);
+                        msg_from = msgs[i].getOriginatingAddress();
+                       /* msgBody.add(msgs[i].getMessageBody());*/
+                        Log.v("ww", Integer.toString(msgs.length));
+                        msgBody=msgBody+msgs[i].getMessageBody();
+                    }
+                    MainActivity.updateView(MainActivity.timeView, "Message recieved on: " + IncomingSms.getCurrentTime());
+                    MainActivity.updateView(MainActivity.smsView, msgBody);
+                }catch(Exception e){
+//                            Log.d("Exception caught",e.getMessage());
+                }
+            }
+        }
+    }
         // Retrieves a map of extended data from the intent.
-        final Bundle bundle = intent.getExtras();
+        /*final Bundle bundle = intent.getExtras();
 
         try {
 
@@ -32,24 +60,22 @@ public class IncomingSms extends BroadcastReceiver {
 
                 final Object[] pdusObj = (Object[]) bundle.get("pdus");
 
-                for (int i = 0; i < pdusObj.length; i++) {
-
-                    SmsMessage currentMessage = SmsMessage.createFromPdu((byte[]) pdusObj[i]);
-                    String phoneNumber = currentMessage.getDisplayOriginatingAddress();
-
-                    String senderNum = phoneNumber;
-                    String message = currentMessage.getDisplayMessageBody();
+                for (Object aPdusObj : pdusObj) {
+                    currentMessage = SmsMessage.createFromPdu((byte[]) aPdusObj);
+                    phoneNumber = currentMessage.getDisplayOriginatingAddress();
+                    senderNum = phoneNumber;
+                    message = currentMessage.getDisplayMessageBody();
 
                     Log.i("SmsReceiver", "senderNum: " + senderNum + "; message: " + message);
                     smsMessage.add(message);
 
+                   *//* MainActivity.updateView(MainActivity.timeView, "Message recieved on: " + IncomingSms.getCurrentTime());
+                    MainActivity.updateView(MainActivity.smsView, IncomingSms.message);*//*
 
-                    MainActivity.timeview.setText("Message recieved on: " + getCurrentTime());
-                    MainActivity.smsView.setText(smsMessage.toString().substring(1,smsMessage.toString().length()-1));
                     // Show Alert
                     int duration = Toast.LENGTH_LONG;
                     Toast toast = Toast.makeText(context,
-                            "senderNum: "+ senderNum + ", message: " + message, duration);
+                            "senderNum: " + senderNum + ", message: " + message, duration);
                     toast.show();
 
                 } // end for loop
@@ -59,7 +85,7 @@ public class IncomingSms extends BroadcastReceiver {
             Log.e("SmsReceiver", "Exception smsReceiver" +e);
 
         }
-    }
+    }*/
     public static String getCurrentTime(){
         Calendar cal = Calendar.getInstance();
         int second = cal.get(Calendar.SECOND);
